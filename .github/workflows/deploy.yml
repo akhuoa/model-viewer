@@ -51,7 +51,7 @@ jobs:
       - name: Copy css
         run: cp style.css dist
       - name: Copy assets
-        run: cp
+        run: cp -r assets/*.* dist/assets
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
