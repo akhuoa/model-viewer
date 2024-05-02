@@ -46,6 +46,12 @@ jobs:
         with:
           # Upload dist folder
           path: './dist'
+      - name: Copy html
+        run: cp *.html dist
+      - name: Copy css
+        run: cp style.css dist
+      - name: Copy assets
+        run: cp
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
