@@ -39,12 +39,6 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Copy html
-        run: cp *.html dist
-      - name: Copy css
-        run: cp style.css dist
-      - name: Copy assets
-        run: cp -r assets/*.* dist/assets
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
