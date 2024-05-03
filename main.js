@@ -70,7 +70,9 @@ document.querySelector('#app').innerHTML = `
         environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr"
         poster="https://modelviewer.dev/shared-assets/models/NeilArmstrong.webp"
         shadow-intensity="1"
-        camera-controls touch-action="pan-y"
+        camera-controls
+        camera-orbit="auto auto 10%"
+        touch-action="pan-y"
       >
         <button slot="ar-button" style="${arButtonStyle}">
           View in AR
