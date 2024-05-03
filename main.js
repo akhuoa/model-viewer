@@ -71,7 +71,6 @@ document.querySelector('#app').innerHTML = `
         poster="https://modelviewer.dev/shared-assets/models/NeilArmstrong.webp"
         shadow-intensity="1"
         camera-controls
-        camera-orbit="auto auto 10%"
         touch-action="pan-y"
       >
         <button slot="ar-button" style="${arButtonStyle}">
