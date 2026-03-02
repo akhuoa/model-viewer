@@ -4,7 +4,7 @@ import ratGlb from './assets/rat.glb'
 import human1Glb from './assets/human-wholebody.glb'
 import human2Glb from './assets/human-halfbody.glb'
 
-const routes = [
+export const routes = [
   {
     name: 'Demo',
     url: 'https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb'
@@ -23,28 +23,78 @@ const routes = [
   },
 ]
 
-let NavList = ''
-routes.forEach((route, index) => {
-  NavList += `
+function escapeHtml(value) {
+  if (value === null || value === undefined) return '';
+  return String(value).replace(/[&<>"']/g, (ch) => {
+    switch (ch) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '"':
+        return '&quot;';
+      case "'":
+        return '&#39;';
+      default:
+        return ch;
+    }
+  });
+}
+
+function escapeAttribute(value) {
+  // For now, use the same escaping as for HTML text content.
+  return escapeHtml(value);
+}
+
+export function buildNavList(routeList) {
+  if (!routeList || routeList.length === 0) return ''
+  let html = ''
+  routeList.forEach((route, index) => {
+    const safeUrl = escapeAttribute(route && route.url)
+    const safeName = escapeHtml(route && route.name)
+    html += `
     <li>
-      <button data-url="${route.url}" class="${index === 0 ? 'active' : ''}">
-        ${route.name}
+      <button data-url="${safeUrl}" class="${index === 0 ? 'active' : ''}">
+        ${safeName}
       </button>
     </li>
   `
-})
+  })
+  return html
+}
+
+export function handleNavClick(e, navBtns) {
+  if (!e) return
+
+  // Prefer the element the listener is attached to; fall back to resolving from target.
+  const baseTarget = e.currentTarget || e.target
+  if (!(baseTarget instanceof HTMLElement)) return
+
+  const button = typeof baseTarget.closest === 'function'
+    ? baseTarget.closest('button')
+    : baseTarget
+
+  if (!button || !(button instanceof HTMLElement)) return
+
+  const url = button.dataset ? button.dataset.url : undefined
+  if (!url) return
+
+  const modelViewerEl = document.querySelector('model-viewer')
+  if (modelViewerEl) modelViewerEl.src = url
+
+  navBtns.forEach((btn) => btn.classList.remove('active'))
+  button.classList.add('active')
+}
+
+const NavList = buildNavList(routes)
 
 window.onload = () => {
   const navBtns = document.querySelectorAll('nav li button')
   navBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const url = e.target.dataset.url
-
-      const modelViewerEl = document.querySelector('model-viewer')
-      if (modelViewerEl) modelViewerEl.src = url
-
-      navBtns.forEach((btn) => { btn.classList.remove('active')})
-      btn.classList.add('active')
+      handleNavClick(e, navBtns)
     })
   })
 }
@@ -55,7 +105,9 @@ const arButtonStyle = `
   right: 0;
 `
 
-document.querySelector('#app').innerHTML = `
+const appEl = document.querySelector('#app')
+if (appEl) {
+  appEl.innerHTML = `
   <div>
     <h1>Model Viewer</h1>
     <p>Testing 3D models with AR on mobile device.</p>
@@ -82,3 +134,5 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 `
+}
+
