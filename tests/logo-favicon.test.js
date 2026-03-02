@@ -161,13 +161,13 @@ describe('main.js logo in HTML template', () => {
   })
 
   it('logo img has an alt attribute', () => {
-    expect(mainContent).toMatch(/alt\s*=\s*["'][^"']+["']/)
+    expect(mainContent).toMatch(/alt\s*=\s*["'][^"']*["']/)
   })
 
-  it('logo img alt text is descriptive (not empty)', () => {
+  it('logo img alt text is empty for decorative logo inside heading', () => {
     const match = mainContent.match(/alt\s*=\s*["']([^"']*)["']/)
     expect(match).not.toBeNull()
-    expect(match[1].trim().length).toBeGreaterThan(0)
+    expect(match[1].trim()).toBe('')
   })
 
   it('logo img has class="site-logo"', () => {
