@@ -36,6 +36,10 @@ h1 {
   margin: 1rem 0;
   font-size: 2.4em;
   line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 @media screen and (min-width: 600px) {
@@ -92,6 +96,11 @@ nav {
 }
 .logo.vanilla:hover {
   filter: drop-shadow(0 0 2em #f7df1eaa);
+}
+
+.site-logo {
+  height: 1em;
+  width: 1em;
 }
 
 .card {

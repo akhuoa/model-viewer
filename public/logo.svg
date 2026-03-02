@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#1a1a2e" stroke="#646cff" stroke-width="2"/>
+
+  <!-- 3D Cube (isometric view) -->
+  <!-- Top face -->
+  <polygon points="50,18 74,31 50,44 26,31" fill="#646cff" opacity="0.9"/>
+  <!-- Left face -->
+  <polygon points="26,31 50,44 50,70 26,57" fill="#4a50c4" opacity="0.9"/>
+  <!-- Right face -->
+  <polygon points="74,31 50,44 50,70 74,57" fill="#8b8fff" opacity="0.9"/>
+
+  <!-- AR indicator: corner brackets in bottom-right area -->
+  <g transform="translate(58, 58)" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <!-- Top-left bracket -->
+    <polyline points="4,10 4,4 10,4"/>
+    <!-- Top-right bracket -->
+    <polyline points="18,4 24,4 24,10"/>
+    <!-- Bottom-left bracket -->
+    <polyline points="4,18 4,24 10,24"/>
+    <!-- Bottom-right bracket -->
+    <polyline points="18,24 24,24 24,18"/>
+  </g>
+</svg>
