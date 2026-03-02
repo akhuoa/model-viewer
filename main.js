@@ -66,14 +66,26 @@ export function buildNavList(routeList) {
 }
 
 export function handleNavClick(e, navBtns) {
-  if (!e || !e.target) return
-  const url = e.target.dataset.url
+  if (!e) return
+
+  // Prefer the element the listener is attached to; fall back to resolving from target.
+  const baseTarget = e.currentTarget || e.target
+  if (!(baseTarget instanceof HTMLElement)) return
+
+  const button = typeof baseTarget.closest === 'function'
+    ? baseTarget.closest('button')
+    : baseTarget
+
+  if (!button || !(button instanceof HTMLElement)) return
+
+  const url = button.dataset ? button.dataset.url : undefined
+  if (!url) return
 
   const modelViewerEl = document.querySelector('model-viewer')
   if (modelViewerEl) modelViewerEl.src = url
 
   navBtns.forEach((btn) => btn.classList.remove('active'))
-  e.target.classList.add('active')
+  button.classList.add('active')
 }
 
 const NavList = buildNavList(routes)
