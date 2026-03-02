@@ -114,8 +114,8 @@ describe('index.html favicon', () => {
     expect(favicon).not.toBeNull()
   })
 
-  it('favicon href points to /logo.svg', () => {
-    expect(favicon.getAttribute('href')).toBe('/logo.svg')
+  it('favicon href points to %BASE_URL%logo.svg', () => {
+    expect(favicon.getAttribute('href')).toBe('%BASE_URL%logo.svg')
   })
 
   it('favicon href does NOT point to the old vite.svg', () => {
@@ -156,8 +156,8 @@ describe('main.js logo in HTML template', () => {
     expect(mainContent).toContain('<img')
   })
 
-  it('logo img src points to /logo.svg', () => {
-    expect(mainContent).toContain('src="/logo.svg"')
+  it('logo img src uses BASE_URL for sub-path deployment compatibility', () => {
+    expect(mainContent).toContain('src="${import.meta.env.BASE_URL}logo.svg"')
   })
 
   it('logo img has an alt attribute', () => {
@@ -193,10 +193,9 @@ describe('main.js logo in HTML template', () => {
     expect(mainContent).not.toContain('vite.svg')
   })
 
-  it('logo img src path starts with a leading slash (absolute path)', () => {
-    const match = mainContent.match(/src\s*=\s*["']([^"']*)["']/)
-    expect(match).not.toBeNull()
-    expect(match[1]).toMatch(/^\//)
+  it('logo img src does not use a root-absolute path (would break sub-path deployments)', () => {
+    // BASE_URL-based path should not be a plain root-absolute /logo.svg
+    expect(mainContent).not.toContain('src="/logo.svg"')
   })
 })
 

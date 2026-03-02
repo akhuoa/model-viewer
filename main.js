@@ -109,7 +109,7 @@ const appEl = document.querySelector('#app')
 if (appEl) {
   appEl.innerHTML = `
   <div>
-    <h1><img src="/logo.svg" alt="Model Viewer Logo" class="site-logo" />Model Viewer</h1>
+    <h1><img src="${import.meta.env.BASE_URL}logo.svg" alt="" aria-hidden="true" class="site-logo" />Model Viewer</h1>
     <p>Testing 3D models with AR on mobile device.</p>
     <nav>
       ${NavList}
