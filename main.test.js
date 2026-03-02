@@ -93,7 +93,14 @@ describe('buildNavList', () => {
   it('handles routes with special characters in name', () => {
     const routes = [{ name: '<script>alert(1)</script>', url: '/safe.glb' }]
     const result = buildNavList(routes)
-    expect(result).toContain('<script>alert(1)</script>')
+    // The raw <script> tag should not appear in the HTML to avoid XSS.
+    expect(result).not.toContain('<script>alert(1)</script>')
+    // But the text content shown to the user should match the route name.
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(`<ul>${result}</ul>`, 'text/html')
+    const button = doc.querySelector('button')
+    expect(button).not.toBeNull()
+    expect(button.textContent).toBe('<script>alert(1)</script>')
   })
 })
 
