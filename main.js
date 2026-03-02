@@ -57,7 +57,7 @@ const arButtonStyle = `
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <h1>Model Viewer</h1>
+    <h1><img src="/logo.svg" alt="Model Viewer Logo" class="site-logo" />Model Viewer</h1>
     <p>Testing 3D models with AR on mobile device.</p>
     <nav>
       ${NavList}
