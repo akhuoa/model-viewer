@@ -23,14 +23,41 @@ export const routes = [
   },
 ]
 
+function escapeHtml(value) {
+  if (value === null || value === undefined) return '';
+  return String(value).replace(/[&<>"']/g, (ch) => {
+    switch (ch) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '"':
+        return '&quot;';
+      case "'":
+        return '&#39;';
+      default:
+        return ch;
+    }
+  });
+}
+
+function escapeAttribute(value) {
+  // For now, use the same escaping as for HTML text content.
+  return escapeHtml(value);
+}
+
 export function buildNavList(routeList) {
   if (!routeList || routeList.length === 0) return ''
   let html = ''
   routeList.forEach((route, index) => {
+    const safeUrl = escapeAttribute(route && route.url)
+    const safeName = escapeHtml(route && route.name)
     html += `
     <li>
-      <button data-url="${route.url}" class="${index === 0 ? 'active' : ''}">
-        ${route.name}
+      <button data-url="${safeUrl}" class="${index === 0 ? 'active' : ''}">
+        ${safeName}
       </button>
     </li>
   `
