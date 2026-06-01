@@ -11,9 +11,9 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/coverage-v8": "^4.1.8",
     "jsdom": "^28.1.0",
     "vite": "^7.3.2",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.8"
   }
 }
